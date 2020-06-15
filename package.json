@@ -1,0 +1,36 @@
+{
+  "name": "insecable",
+  "version": "0.1.0",
+  "description": "Aim at adding non-breaking spaces where relevant in an HTML string",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morgaan/insecable.git"
+  },
+  "keywords": [
+    "insecable",
+    "non-breaking",
+    "space",
+    "html",
+    "entities"
+  ],
+  "author": "Morgan CUGERONE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/morgaan/insecable/issues"
+  },
+  "homepage": "https://github.com/morgaan/insecable#readme",
+  "dependencies": {},
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}
