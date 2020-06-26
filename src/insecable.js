@@ -8,51 +8,65 @@
  *
  */
 function insecable(html, rulesSet) {
-	let patchedHtml = html;
+  let patchedHtml = html;
 
-	if (html
-		&& typeof html == 'string'
-		&& rulesSet
-		&& Object.keys(rulesSet).length > 0) {
+  if (
+    html &&
+    typeof html == "string" &&
+    rulesSet &&
+    Object.keys(rulesSet).length > 0
+  ) {
+    Object.keys(rulesSet).forEach(function processReplacement(
+      replacementString
+    ) {
+      const { leading, trailing, nested } = rulesSet[replacementString];
 
-		Object.keys(rulesSet).forEach(function processReplacement(replacementString) {
+      if (leading && Array.isArray(leading)) {
+        leading.forEach(function processTerm(term) {
+          if (typeof term == "string") {
+            patchedHtml = patchedHtml.replace(
+              new RegExp(`\\s${espaceStringRegex(term)}`, "g"),
+              function replacer(match) {
+                return `${replacementString}${match.trim()}`;
+              }
+            );
+          }
+        });
+      }
 
-			const {leading, trailing, wrapping} = rulesSet[replacementString];
+      if (trailing && Array.isArray(trailing)) {
+        trailing.forEach(function processTerm(term) {
+          if (typeof term == "string") {
+            patchedHtml = patchedHtml.replace(
+              new RegExp(`${espaceStringRegex(term)}\\s`, "g"),
+              function replacer(match) {
+                return `${match.trim()}${replacementString}`;
+              }
+            );
+          }
+        });
+      }
 
-			if (leading && Array.isArray(leading)) {
-				leading.forEach(function processTerm(term) {
-					if (typeof term == 'string') {
-						patchedHtml = patchedHtml.replace(new RegExp(`\\s${espaceStringRegex(term)}`, 'g'), function replacer(match) {
-							return `${replacementString}${match.trim()}`;
-						});
-					}
-				});
-			}
+      if (nested && Array.isArray(nested)) {
+        nested.forEach(function processTerm(term) {
+          if (typeof term == "string") {
+            const espacedTerm = espaceStringRegex(term);
+            patchedHtml = patchedHtml.replace(
+              new RegExp(
+                `${espacedTerm}(\\s[^${espacedTerm}]*\\s)${espacedTerm}`,
+                "g"
+              ),
+              function replacer(match, group1) {
+                return `${term}${replacementString}${group1.trim()}${replacementString}${term}`;
+              }
+            );
+          }
+        });
+      }
+    });
+  }
 
-			if (trailing && Array.isArray(trailing)) {
-				trailing.forEach(function processTerm(term) {
-					if (typeof term == 'string') {
-						patchedHtml = patchedHtml.replace(new RegExp(`${espaceStringRegex(term)}\\s`, 'g'), function replacer(match) {
-							return `${match.trim()}${replacementString}`;
-						});
-					}
-				});
-			}
-
-			if (wrapping && Array.isArray(wrapping)) {
-				wrapping.forEach(function processTerm(term) {
-					if (typeof term == 'string') {
-						const espacedTerm = espaceStringRegex(term);
-						patchedHtml = patchedHtml.replace(new RegExp(`${espacedTerm}(\\s[^${espacedTerm}]*\\s)${espacedTerm}`, 'g'), function replacer(match, group1) {
-							return `${term}${replacementString}${group1.trim()}${replacementString}${term}`;
-						});
-					}
-				});
-			}
-		});
-	}
-
-	return patchedHtml;
+  return patchedHtml;
 }
 
 /**
@@ -62,7 +76,7 @@ function insecable(html, rulesSet) {
  * @returns {string} - Escaped string.
  */
 function espaceStringRegex(string) {
-	return string.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
+  return string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&");
 }
 
-module.exports = {insecable};
+module.exports = { insecable };
