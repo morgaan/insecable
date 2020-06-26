@@ -1,6 +1,6 @@
 const {insecable} = require('../src/insecable');
 
-describe('Taken a valid rules set', () => {
+describe('Taken a single valid ruleset', () => {
 	describe('containing one or more symbols to be preceeded by a non-breaking space', () => {
 		let ruleset, input, expected;
 
@@ -67,7 +67,10 @@ describe('Taken a valid rules set', () => {
 			expect(insecable(input, ruleset)).toBe(expected);
 		});
 	});
-	describe('called with wrong types, return original input(fail-safe)', () => {
+});
+
+describe('Error-safe tests', () => {
+	describe('called with wrong types', () => {
 		let ruleset, input, expected;
 
 		it('should returns input if input is not a string', () => {
@@ -122,5 +125,19 @@ describe('Taken a valid rules set', () => {
 			ruleset = {'&#160;': {nested: '–'}};
 			expect(insecable(input, ruleset)).toBe(input);
 		});
+	});
+});
+
+describe('Taken multiple valid rulesets', () => {
+	test('output should have applied replacements ruled by the multiple rulesets', () => {
+			const rulesets = [
+				{'&#8239;': {leading: ['!', '?']}},
+				{'&#160;': {trailing: [',']}},
+				{'&#160;': {nested: ['–']}}
+			];
+
+			const input = ' ! , ? blah blah – Ceci est un test –';
+			const expected = '&#8239;! ,&#8239;? blah blah –&#160;Ceci est un test&#160;–';
+			expect(insecable(input, rulesets)).toBe(expected);
 	});
 });
