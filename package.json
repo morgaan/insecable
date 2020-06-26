@@ -4,7 +4,7 @@
   "description": "Aim at adding non-breaking spaces where relevant in an HTML string",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose --coverage"
   },
   "repository": {
     "type": "git",
