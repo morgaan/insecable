@@ -1,5 +1,7 @@
 # Insecable
 
+[![Build Status](https://travis-ci.com/morgaan/insecable.svg?branch=master)](https://travis-ci.com/morgaan/insecable)
+
 Insecable is a module that aims at adding non-breaking spaces where relevant in
 an HTML string.
 
