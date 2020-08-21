@@ -2,7 +2,7 @@ const {insecable} = require('../insecable');
 
 describe('Taken the french ruleset', () => {
 	test('The punctuation ruleset should rules as expected and render text with appropriate replacements', () => {
-		const {punctuaction: ruleset} = require('./fr-FR');
+		const {punctuation: ruleset} = require('./fr-FR');
 		const input = `
 			Ça alors !
 			Je ne l'avais jamais vu ; ces espaces me semblent bizarres.

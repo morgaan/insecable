@@ -1,8 +1,12 @@
 {
   "name": "insecable",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Aims at adding non-breaking spaces where relevant in an HTML string",
   "main": "./dist/index.js",
+  "files": [
+    "index.js",
+    "src/"
+  ],
   "scripts": {
     "test": "jest --verbose --coverage"
   },

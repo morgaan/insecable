@@ -1,4 +1,4 @@
-const punctuaction = {
+const punctuation = {
 	'&#8239;': {
 		leading: [
 			'!', ';', '?'
@@ -16,5 +16,6 @@ const punctuaction = {
 		]
 	}
 };
+// Source: http://unicode.org/udhr/n/notes_fra.html
 
-module.exports = {punctuaction};
+module.exports = {punctuation};
