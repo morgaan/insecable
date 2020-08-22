@@ -1,6 +1,6 @@
 {
   "name": "insecable",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Aims at adding non-breaking spaces where relevant in an HTML string",
   "main": "./dist/index.js",
   "files": [
